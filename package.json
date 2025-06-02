@@ -8,8 +8,8 @@
     "vercel-build": "node vercel-build.cjs",
     "start": "next start",
     "lint": "next lint",
-    "db:migrate": "node --no-warnings=ExperimentalWarning --loader ts-node/esm src/db/migrate.ts",
-    "db:seed": "node --no-warnings=ExperimentalWarning --loader ts-node/esm src/db/seed.ts",
+    "db:migrate": "ts-node src/db/migrate.ts",
+    "db:seed": "ts-node src/db/seed.ts",
     "db:reset": "npm run db:migrate && npm run db:seed",
     "type-check": "tsc --noEmit"
   },
@@ -65,7 +65,6 @@
     "postcss": "^8.4.35",
     "prettier": "^3.2.5",
     "tailwindcss": "^3.4.1",
-    "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   }
 }

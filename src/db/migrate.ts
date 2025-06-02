@@ -1,11 +1,7 @@
-import path from 'path';
-import { fileURLToPath } from 'url';
-import { query } from './index.js';
-import { env } from '../lib/env.js';
-import { readdir, readFile } from '../lib/fs-utils.js';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const path = require('path');
+const { query } = require('./index.js');
+const { env } = require('../lib/env.js');
+const { readdir, readFile } = require('../lib/fs-utils.js');
 
 async function migrate() {
   console.log('Starting migrations...');
@@ -24,11 +20,11 @@ async function migrate() {
     const { rows } = await query('SELECT name FROM "_migrations"');
     // Безопасно приводим тип, проверяя структуру данных
     const completedMigrations = (Array.isArray(rows) ? rows : []).flat().filter(
-      (row): row is { name: string } => 
+      (row) => 
         typeof row === 'object' && 
         row !== null && 
         'name' in row && 
-        typeof (row as { name: unknown }).name === 'string'
+        typeof row.name === 'string'
     );
     const completedMigrationNames = new Set(completedMigrations.map(m => m.name));
 
@@ -36,7 +32,7 @@ async function migrate() {
     const migrationsDir = path.join(__dirname, 'migrations');
     const files = await readdir(migrationsDir);
     const migrationFiles = files
-      .filter((file: string) => file.endsWith('.sql'))
+      .filter((file) => file.endsWith('.sql'))
       .sort();
 
     // Применяем новые миграции
@@ -77,8 +73,8 @@ async function migrate() {
 }
 
 // Если файл запущен напрямую, а не импортирован
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (require.main === module) {
   migrate().catch(console.error);
 }
 
-export { migrate };
+module.exports = { migrate };
