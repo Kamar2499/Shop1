@@ -8,12 +8,11 @@
     "vercel-build": "node vercel-build.cjs",
     "start": "next start",
     "lint": "next lint",
-    "db:migrate": "ts-node src/db/migrate.ts",
-    "db:seed": "ts-node src/db/seed.ts",
+    "db:migrate": "ts-node --transpile-only src/db/migrate.ts",
+    "db:seed": "ts-node --transpile-only src/db/seed.ts",
     "db:reset": "npm run db:migrate && npm run db:seed",
     "type-check": "tsc --noEmit"
   },
-  "type": "module",
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.14",
     "@radix-ui/react-dropdown-menu": "^2.1.5",

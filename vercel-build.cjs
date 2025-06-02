@@ -12,8 +12,7 @@ async function run() {
       stdio: 'inherit',
       env: { 
         ...process.env, 
-        NODE_ENV: 'production',
-        NODE_OPTIONS: '--experimental-modules --es-module-specifier-resolution=node',
+        NODE_ENV: 'production'
       }
     });
 
@@ -43,8 +42,7 @@ async function run() {
     // Устанавливаем переменные окружения для дочерних процессов
     const env = {
       ...process.env,
-      NODE_ENV: 'production',
-      NODE_OPTIONS: '--experimental-modules --es-module-specifier-resolution=node',
+      NODE_ENV: 'production'
     };
 
     console.log('Running database migrations...');
@@ -72,10 +70,7 @@ async function run() {
     console.log('Building Next.js application...');
     execSync('npm run build', { 
       stdio: 'inherit',
-      env: { 
-        ...env,
-        NODE_OPTIONS: '--experimental-modules --es-module-specifier-resolution=node --no-warnings',
-      }
+      env
     });
 
     console.log('Build completed successfully!');
