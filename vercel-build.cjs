@@ -45,6 +45,17 @@ async function run() {
       NODE_ENV: 'production'
     };
 
+    console.log('Building database scripts...');
+    try {
+      execSync('npm run build:db', { 
+        stdio: 'inherit',
+        env
+      });
+    } catch (error) {
+      console.error('Error building database scripts:', error);
+      process.exit(1);
+    }
+
     console.log('Running database migrations...');
     try {
       execSync('npm run db:migrate', { 
